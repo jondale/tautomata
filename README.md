@@ -6,7 +6,6 @@ Just some fun little scripts with the following goals:
  - Implement cellular automata in a terminal
  - Require nothing that isn't usually installed by default
 
- ---
 
 ## Keys
 
@@ -17,7 +16,6 @@ q | quit
 Any other key | Reinitialize the board (usually randomly)
 
 
----
 
 ## Scripts
 
