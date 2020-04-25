@@ -18,14 +18,14 @@ WRAP_BOARD = False
 def rugScore(board, x, y):
 
     sum = 0
-    sum += 4 * int(board.get(x, y-1, WRAP_BOARD, 0))
-    sum += 4 * int(board.get(x, y+1, WRAP_BOARD, 0))
-    sum += 4 * int(board.get(x-1, y, WRAP_BOARD, 0))
-    sum += 4 * int(board.get(x+1, y, WRAP_BOARD, 0))
-    sum += int(board.get(x-1, y-1, WRAP_BOARD, 0))
-    sum += int(board.get(x+1, y-1, WRAP_BOARD, 0))
-    sum += int(board.get(x-1, y+1, WRAP_BOARD, 0))
-    sum += int(board.get(x+1, y+1, WRAP_BOARD, 0))
+    sum += 4 * int(board.get(x, y-1, 0))
+    sum += 4 * int(board.get(x, y+1, 0))
+    sum += 4 * int(board.get(x-1, y, 0))
+    sum += 4 * int(board.get(x+1, y, 0))
+    sum += int(board.get(x-1, y-1, 0))
+    sum += int(board.get(x+1, y-1, 0))
+    sum += int(board.get(x-1, y+1, 0))
+    sum += int(board.get(x+1, y+1, 0))
 
     return str(int(float(sum) / 20.0))
 

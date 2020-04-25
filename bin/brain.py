@@ -30,7 +30,7 @@ def iterateLife(board):
     newBoard = board.new()
     for y in range(board.h):
         for x in range(board.w):
-            n = board.neighbors().count("live")
+            n = board.neighbors(x, y).count("live")
             state = board.get(x, y)
             if state == "live":
                 newBoard.set(x, y, "dying")
