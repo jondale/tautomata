@@ -19,18 +19,16 @@ DEAD_BG = 16
 
 
 def numNeighbors(board, x, y):
-    n = 0
-
-    minx = max(0, x-1)
-    maxx = min(board.w-1, x+1)
-    miny = max(0, y-1)
-    maxy = min(board.h-1, y+1)
-
-    for y2 in range(miny, maxy+1):
-        for x2 in range(minx, maxx+1):
-            if (x2 != x or y2 != y) and board.get(x2, y2) == "live":
-                n += 1
-    return n
+    states = []
+    states.append(board.get(x-1, y-1, "dead"))
+    states.append(board.get(x, y-1, "dead"))
+    states.append(board.get(x+1, y-1, "dead"))
+    states.append(board.get(x-1, y, "dead"))
+    states.append(board.get(x+1, y, "dead"))
+    states.append(board.get(x-1, y+1, "dead"))
+    states.append(board.get(x, y+1, "dead"))
+    states.append(board.get(x+1, y+1, "dead"))
+    return states.count("live")
 
 
 def iterateBoard(board):
