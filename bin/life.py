@@ -18,25 +18,12 @@ DEAD_BG = 16
 # ################ CONFIG #################
 
 
-def numNeighbors(board, x, y):
-    states = []
-    states.append(board.get(x-1, y-1, "dead"))
-    states.append(board.get(x, y-1, "dead"))
-    states.append(board.get(x+1, y-1, "dead"))
-    states.append(board.get(x-1, y, "dead"))
-    states.append(board.get(x+1, y, "dead"))
-    states.append(board.get(x-1, y+1, "dead"))
-    states.append(board.get(x, y+1, "dead"))
-    states.append(board.get(x+1, y+1, "dead"))
-    return states.count("live")
-
-
 def iterateBoard(board):
     newBoard = board.new()
 
     for y in range(board.h):
         for x in range(board.w):
-            n = numNeighbors(board, x, y)
+            n = board.neighbors(x, y).count("live")
             if board.get(x, y) == "live" and n in (2, 3):
                 newBoard.set(x, y, "live")
             elif n == 3:

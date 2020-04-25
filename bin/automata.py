@@ -56,6 +56,20 @@ class automataBoard(object):
                 return default
             return self.board[y][x]
 
+    def neighbors(self, x, y, neighborhood=1):
+        minx = x-neighborhood
+        maxx = x+neighborhood+1
+        miny = y-neighborhood
+        maxy = y+neighborhood+1
+
+        n = []
+        for y2 in range(miny, maxy):
+            for x2 in range(minx, maxx):
+                if x2 != x or y2 != y:
+                    n.append(self.get(x2, y2))
+
+        return n
+
     def copy(self):
         tmp = self.board.copy()
         newBoard = automataBoard(self.w, self.h, self.default, self.wrap)
