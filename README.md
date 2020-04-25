@@ -7,6 +7,15 @@ Just some fun little scripts with the following goals:
  - Require nothing that isn't usually installed by default
 
 
+## Keys
+
+Key(s) | Action
+------ | ----------
+Up/Down arrow | Change delay (speed up or slow down)
+q | quit
+Any other key | Reinitialize the board (usually randomly)
+
+
 ## Scripts
 
 ### automata.py
