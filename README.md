@@ -1,0 +1,2 @@
+# tautomata
+Terminal Cellular Automata
