@@ -17,22 +17,9 @@ K = PARAMS[3]
 Y = PARAMS[4]
 
 
-def sum_neighbors(board, x, y):
-    nw = board.get(x-1, y-1, 0)
-    n = board.get(x, y-1, 0)
-    ne = board.get(x+1, y-1, 0)
-    e = board.get(x+1, y, 0)
-    se = board.get(x+1, y+1, 0)
-    s = board.get(x, y+1, 0)
-    sw = board.get(x-1, y+1, 0)
-    w = board.get(x-1, y, 0)
-
-    return (nw + n + ne + e + se + s + sw + w)
-
-
 def newstate(board, x, y):
     oldstate = board.get(x, y)
-    sum_8 = sum_neighbors(board, x, y)
+    sum_8 = sum(board.neighbors(x, y))
     n = 0
 
     if (oldstate == 0) and (L <= sum_8) and (sum_8 <= U):

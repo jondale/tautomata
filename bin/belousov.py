@@ -25,28 +25,22 @@ WRAP_BOARD = True
 
 def illScore(board, x, y):
 
-    minx = x-1
-    maxx = x+1
-    miny = y-1
-    maxy = y+1
+    state = int(board.get(x, y))
+    if state >= ILL_LEVEL:
+        return "0"
 
     a = 0.0
     b = 0.0
     s = 0.0
 
-    state = int(board.get(x, y))
-    if state >= ILL_LEVEL:
-        return "0"
-
-    for y2 in range(miny, maxy+1):
-        for x2 in range(minx, maxx+1):
-            if (x != x2 or y != y2):
-                lvl = int(board.get(x2, y2, default=0))
-                s += lvl
-                if lvl > 0 and lvl < ILL_LEVEL:
-                    a += 1.0
-                elif lvl == ILL_LEVEL:
-                    b += 1.0
+    neighbors = board.neighbors(x, y)
+    for n in neighbors:
+        lvl = int(n)
+        s += lvl
+        if lvl > 0 and lvl < ILL_LEVEL:
+            a += 1.0
+        elif lvl == ILL_LEVEL:
+            b += 1.0
 
     if state <= 0.0:
         state = int(a/K1) + int(b/K2)

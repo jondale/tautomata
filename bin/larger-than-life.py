@@ -37,28 +37,12 @@ S1 = PARAMS[3]   # Survive range min
 S2 = PARAMS[4]   # Survive range max
 
 
-def numNeighbors(board, x, y):
-    n = 0
-
-    minx = x-P
-    maxx = x+P
-    miny = y-P
-    maxy = y+P
-
-    for y2 in range(miny, maxy+1):
-        for x2 in range(minx, maxx+1):
-            val = board.get(x2, y2)
-            if (x2 != x or y2 != y) and val == "live":
-                n += 1
-    return n
-
-
 def iterateLife(board):
     board.wrap = WRAP_BOARD
     newBoard = board.new()
     for y in range(board.h):
         for x in range(board.w):
-            n = numNeighbors(board, x, y)
+            n = board.neighbors(x, y, P).count("live")
             if board.get(x, y) == "live" and n >= S1 and n <= S2:
                 newBoard.set(x, y, "live")
             elif n >= B1 and n <= B2:

@@ -33,31 +33,17 @@ EMPTY_BG = 0
 # ################ CONFIG #################
 
 
-def fireScore(board, x, y):
-    n = 0.0
-
-    minx = max(0, x-1)
-    maxx = min(board.w-1, x+1)
-    miny = max(0, y-1)
-    maxy = min(board.h-1, y+1)
-
-    for y2 in range(miny, maxy+1):
-        for x2 in range(minx, maxx+1):
-            if board.get(x2, y2) == "fire":
-                n += IGNITE_PROB
-    return n
-
-
 def iterateBoard(board):
     newBoard = board.copy()
 
     for y in range(board.h):
         for x in range(board.w):
-            if board.get(x, y) == "veg":
-                bs = fireScore(board, x, y)
+            state = board.get(x, y)
+            if state == "veg":
+                bs = board.neighbors(x, y).count("fire") * IGNITE_PROB
                 if bs > random.random():
                     newBoard.set(x, y, "fire")
-            elif board.get(x, y) == "fire":
+            elif state == "fire":
                 if BURNT_PROB > random.random():
                     newBoard.set(x, y, "burnt")
 
