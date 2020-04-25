@@ -19,7 +19,7 @@ ANT_CHAR = '*'
 # ################ CONFIG #################
 
 
-def iterateLife(board):
+def iterateBoard(board):
     newBoard = board.copy()
     for y in range(board.h):
         for x in range(board.w):
@@ -76,7 +76,7 @@ def postInit(board):
     return board
 
 
-a = automata(postInit=postInit, iterate=iterateLife, default_state="s2")
+a = automata(postInit=postInit, iterate=iterateBoard, default_state="s2")
 a.newState("s1", S1_FG, S1_BG, S1_CHAR, 0)
 a.newState("s2", S2_FG, S2_BG, S2_CHAR, 0)
 a.newState("ant.west.s1", S1_FG, S1_BG, ANT_CHAR, 0)
