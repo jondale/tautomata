@@ -43,7 +43,7 @@ def iterateLife(board):
                         newdir = "west"
                         y2 = y
                         x2 = x - 1
-                    newBoard.set(x, y, "s2", wrap=True)
+                    newBoard.set(x, y, "s2")
                 else:
                     if d == "west":
                         newdir = "south"
@@ -62,9 +62,9 @@ def iterateLife(board):
                         y2 = y
                         x2 = x + 1
                     newBoard.set(x, y, "s1")
-                oldstate = board.get(x2, y2, wrap=True)
+                oldstate = board.get(x2, y2)
                 newstate = "ant.{}.{}".format(newdir, oldstate)
-                newBoard.set(x2, y2, newstate, wrap=True)
+                newBoard.set(x2, y2, newstate)
     return newBoard.copy()
 
 
@@ -72,6 +72,7 @@ def postInit(board):
     x = int(board.w / 2)
     y = int(board.h / 2)
     board.set(x, y, "ant.east.s1")
+    board.wrap = True
     return board
 
 

@@ -12,12 +12,14 @@ class automataBoard(object):
     w = 0
     h = 0
     default = None
+    wrap = False
 
-    def __init__(self, w, h, default):
+    def __init__(self, w, h, default, wrap=False):
         self.board.clear()
         self.w = w
         self.h = h
         self.default = default
+        self.wrap = wrap
         for i in range(h):
             self.board.append([])
             for j in range(w):
@@ -26,8 +28,8 @@ class automataBoard(object):
     def setBoard(self, board):
         self.board = board.board.copy()
 
-    def set(self, x, y, val, wrap=False):
-        if wrap:
+    def set(self, x, y, val):
+        if self.wrap:
             if x < 0:
                 x += self.w
             if x >= self.w:
@@ -38,8 +40,8 @@ class automataBoard(object):
                 y -= self.h
         self.board[y][x] = val
 
-    def get(self, x, y, wrap=False, default=None):
-        if wrap:
+    def get(self, x, y, default=None):
+        if self.wrap:
             if x < 0:
                 x += self.w
             if x >= self.w:
@@ -56,21 +58,21 @@ class automataBoard(object):
 
     def copy(self):
         tmp = self.board.copy()
-        newBoard = automataBoard(self.w, self.h, self.default)
+        newBoard = automataBoard(self.w, self.h, self.default, self.wrap)
         newBoard.board = tmp.copy()
         self.board = tmp.copy()
         return newBoard
 
     def new(self):
         tmp = self.board.copy()
-        newBoard = automataBoard(self.w, self.h, self.default)
+        newBoard = automataBoard(self.w, self.h, self.default, self.wrap)
         self.board = tmp.copy()
         return newBoard
 
     def print(self):
         for y in range(self.h):
             for x in range(self.w):
-                print(self.get(x, y)+" ", end='')
+                print(str(self.get(x, y))+" ", end='')
             print("")
 
 
@@ -139,7 +141,7 @@ class automata:
     def initBoard(self):
         self.board = automataBoard(self.w, self.h, self.defaultState)
         if self.funcInit:
-            self.board.setBoard(self.funcInit())
+            self.board.setBoard(self.funcInit(self.board))
         else:
             for y in range(self.h):
                 for x in range(self.w):

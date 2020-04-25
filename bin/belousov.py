@@ -41,7 +41,7 @@ def illScore(board, x, y):
     for y2 in range(miny, maxy+1):
         for x2 in range(minx, maxx+1):
             if (x != x2 or y != y2):
-                lvl = int(board.get(x2, y2, wrap=WRAP_BOARD, default=0))
+                lvl = int(board.get(x2, y2, default=0))
                 s += lvl
                 if lvl > 0 and lvl < ILL_LEVEL:
                     a += 1.0
@@ -59,6 +59,7 @@ def illScore(board, x, y):
 
 
 def iterateBoard(board):
+    board.wrap = WRAP_BOARD
     newBoard = board.new()
 
     for y in range(board.h):

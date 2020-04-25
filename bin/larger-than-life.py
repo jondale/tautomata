@@ -47,13 +47,14 @@ def numNeighbors(board, x, y):
 
     for y2 in range(miny, maxy+1):
         for x2 in range(minx, maxx+1):
-            val = board.get(x2, y2, wrap=WRAP_BOARD)
+            val = board.get(x2, y2)
             if (x2 != x or y2 != y) and val == "live":
                 n += 1
     return n
 
 
 def iterateLife(board):
+    board.wrap = WRAP_BOARD
     newBoard = board.new()
     for y in range(board.h):
         for x in range(board.w):
