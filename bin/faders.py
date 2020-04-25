@@ -49,6 +49,17 @@ def newstate(board, x, y):
     return n
 
 
+def iterateBoard(board):
+    board.wrap = True
+    newBoard = board.new()
+
+    for y in range(board.h):
+        for x in range(board.w):
+            newBoard.set(x, y, newstate(board, x, y))
+
+    return newBoard
+
+
 a = automata(iterate=iterateBoard, default_state=0)
 
 for i in range(0, (N*2)+1):
