@@ -15,14 +15,6 @@ WRAP_BOARD = False
 # ################ CONFIG #################
 
 
-def nowrapVal(board, x, y):
-    h = len(board)
-    w = len(board[0])
-    if x < 0 or x >= w or y < 0 or y >= h:
-        return 0
-    return int(board[y][x])
-
-
 def rugScore(board, x, y):
 
     sum = 0
