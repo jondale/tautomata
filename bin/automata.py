@@ -94,6 +94,7 @@ class automata:
     msgTimeout = 2
     delay = 0.15
     delayMax = 1
+    delayMin = 0.01
     arrowDelta = 0.05
     states = {}
     defaultState = None
@@ -218,8 +219,8 @@ class automata:
                     self.notify("delay: {:.2f}".format(self.delay))
                 elif char == curses.KEY_DOWN:
                     self.delay -= self.arrowDelta
-                    if self.delay <= 0:
-                        self.delay = 0.01
+                    if self.delay <= self.delayMin:
+                        self.delay = self.delayMin
                     self.notify("delay: {:.2f}".format(self.delay))
                 elif char > 0:
                     self.initScreen()
@@ -230,6 +231,7 @@ class automata:
                     self.draw()
                     self.iterate()
                     last_update = t
+                time.sleep(self.delayMin)
 
         except Exception as e:
             self.__del__()
