@@ -66,6 +66,16 @@ Described as a cross between Life and Brain
 
 ---
 
+### forest.py
+
+A Mathematical Approach to Forest Growth Dynamics  
+# http://web.math.unifi.it/users/primicer/2016%20forest%20growth  
+
+![forest.py](screenshots/forest.gif)
+
+
+---
+
 ### larger-than-life.py
 
 [Larger than Life](https://www.emis.de/journals/DMTCS/pdfpapers/dmAA0113.pdf)  
@@ -81,6 +91,14 @@ Similar to the game of life except configurable neighborhood size, birth range, 
 The most famous cellular automata.  
 
 ![life.py](screenshots/life.gif)
+
+---
+
+### reforestation.py
+
+forest.py with the addition of fire
+
+![reforestation.py](screenshots/reforestation.gif)
 
 ---
 
