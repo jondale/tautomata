@@ -68,8 +68,7 @@ Described as a cross between Life and Brain
 
 ### forest.py
 
-A Mathematical Approach to Forest Growth Dynamics  
-# http://web.math.unifi.it/users/primicer/2016%20forest%20growth  
+[A Mathematical Approach to Forest Growth Dynamics](http://web.math.unifi.it/users/primicer/2016%20forest%20growth)  
 
 ![forest.py](screenshots/forest.gif)
 
