@@ -141,10 +141,12 @@ class automata:
             i += 1
 
     def newState(self, state, fg, bg, char, percent):
+        if not isinstance(char, int):
+            char = ord(char)
         self.states[state] = {
             'fg': fg,
             'bg': bg,
-            'char': ord(char),
+            'char': char,
             'percent': percent
         }
 
