@@ -51,6 +51,6 @@ def iterateLife(board):
 
 
 a = automata(iterate=iterateLife, default_state="dead")
-a.newState("live", LIVE_FG, LIVE_BG, LIVE_CHAR, CHANCE_OF_LIFE)
-a.newState("dead", DEAD_FG, DEAD_BG, DEAD_CHAR, 0)
+a.new_state("live", LIVE_FG, LIVE_BG, LIVE_CHAR, CHANCE_OF_LIFE)
+a.new_state("dead", DEAD_FG, DEAD_BG, DEAD_CHAR, 0)
 a.run()

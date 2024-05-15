@@ -18,7 +18,7 @@ DEAD_BG = 16
 # ################ CONFIG #################
 
 
-def iterateBoard(board):
+def iterate_board(board):
     newBoard = board.new()
 
     for y in range(board.h):
@@ -31,7 +31,7 @@ def iterateBoard(board):
     return newBoard
 
 
-life = automata(iterate=iterateBoard, default_state="dead")
-life.newState("live", LIVE_FG, LIVE_BG, LIVE_CHAR, CHANCE_OF_LIFE)
-life.newState("dead", DEAD_FG, DEAD_BG, DEAD_CHAR, 0)
+life = automata(iterate=iterate_board, default_state="dead")
+life.new_state("live", LIVE_FG, LIVE_BG, LIVE_CHAR, CHANCE_OF_LIFE)
+life.new_state("dead", DEAD_FG, DEAD_BG, DEAD_CHAR, 0)
 life.run()

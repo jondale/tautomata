@@ -106,13 +106,13 @@ class automata:
     msgTime = 0
     funcIterate = None
     funcInit = None
-    funcPostInit = None
+    funcpost_init = None
 
-    def __init__(self, iterate, default_state, init=None, postInit=None):
+    def __init__(self, iterate, default_state, init=None, post_init=None):
         self.funcIterate = iterate
         self.defaultState = default_state
         self.funcInit = init
-        self.funcPostInit = postInit
+        self.funcpost_init = post_init
 
     def __del__(self):
         if self.scr:
@@ -121,7 +121,7 @@ class automata:
         curses.echo()
         curses.endwin()
 
-    def initScreen(self):
+    def init_screen(self):
         self.scr = curses.initscr()
         self.h, self.w = self.scr.getmaxyx()
         self.scr.scrollok(False)
@@ -141,7 +141,7 @@ class automata:
             curses.init_pair(i, fg, bg)
             i += 1
 
-    def newState(self, state, fg, bg, char, percent):
+    def new_state(self, state, fg, bg, char, percent):
         if not isinstance(char, int):
             char = ord(char)
         self.states[state] = {
@@ -155,7 +155,7 @@ class automata:
         self.msg = m
         self.msgTime = time.time()
 
-    def initBoard(self):
+    def init_board(self):
         self.board = automataBoard(self.w, self.h, self.defaultState)
         if self.funcInit:
             self.board.setBoard(self.funcInit(self.board))
@@ -168,10 +168,10 @@ class automata:
                             self.board.set(x, y, i)
                             break
 
-        if self.funcPostInit:
-            self.board.setBoard(self.funcPostInit(self.board))
+        if self.funcpost_init:
+            self.board.setBoard(self.funcpost_init(self.board))
 
-    def drawState(self, x, y, state):
+    def draw_state(self, x, y, state):
         try:
             char = self.states[state]["char"]
             i = self.states[state]["color"]
@@ -184,7 +184,7 @@ class automata:
         for y in range(self.h):
             for x in range(self.w):
                 state = self.board.get(x, y)
-                self.drawState(x, y, state)
+                self.draw_state(x, y, state)
 
         if self.msg:
             t = time.time()
@@ -205,8 +205,8 @@ class automata:
     def run(self):
         try:
 
-            self.initScreen()
-            self.initBoard()
+            self.init_screen()
+            self.init_board()
             last_update = 0
             while True:
                 char = self.scr.getch()
@@ -223,8 +223,8 @@ class automata:
                         self.delay = self.delayMin
                     self.notify("delay: {:.2f}".format(self.delay))
                 elif char > 0:
-                    self.initScreen()
-                    self.initBoard()
+                    self.init_screen()
+                    self.init_board()
 
                 t = time.time()
                 if (t - last_update) >= self.delay:

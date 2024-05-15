@@ -67,7 +67,7 @@ def new_growth(board, x, y):
     return n
 
 
-def iterateBoard(board):
+def iterate_board(board):
     global OD, ND, SD
     NOT = (SP * SG * (1-OR)) - (OR * ND) - (AR * ND)
     OOT = (AR * ND) - (MR * OD)
@@ -127,12 +127,12 @@ def iterateBoard(board):
 
 
 
-board = automata(iterate=iterateBoard, default_state="empty")
-board.newState("old", OLD_FG, OLD_BG, OLD_CHAR, OD)
-board.newState("new", NEW_FG, NEW_BG, NEW_CHAR, ND)
-board.newState("seed", SEED_FG, SEED_BG, SEED_CHAR, 0)
-board.newState("empty", EMPTY_FG, EMPTY_BG, EMPTY_CHAR, 0)
-board.newState("fire", FIRE_FG, FIRE_BG, FIRE_CHAR, 0)
-board.newState("burnt", BURNT_FG, BURNT_BG, BURNT_CHAR, 0)
+board = automata(iterate=iterate_board, default_state="empty")
+board.new_state("old", OLD_FG, OLD_BG, OLD_CHAR, OD)
+board.new_state("new", NEW_FG, NEW_BG, NEW_CHAR, ND)
+board.new_state("seed", SEED_FG, SEED_BG, SEED_CHAR, 0)
+board.new_state("empty", EMPTY_FG, EMPTY_BG, EMPTY_CHAR, 0)
+board.new_state("fire", FIRE_FG, FIRE_BG, FIRE_CHAR, 0)
+board.new_state("burnt", BURNT_FG, BURNT_BG, BURNT_CHAR, 0)
 
 board.run()

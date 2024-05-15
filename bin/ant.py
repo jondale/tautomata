@@ -19,7 +19,7 @@ ANT_CHAR = '*'
 # ################ CONFIG #################
 
 
-def iterateBoard(board):
+def iterate_board(board):
     newBoard = board.copy()
     for y in range(board.h):
         for x in range(board.w):
@@ -63,12 +63,12 @@ def iterateBoard(board):
                         x2 = x + 1
                     newBoard.set(x, y, "s1")
                 oldstate = board.get(x2, y2)
-                newstate = "ant.{}.{}".format(newdir, oldstate)
-                newBoard.set(x2, y2, newstate)
+                new_state = "ant.{}.{}".format(newdir, oldstate)
+                newBoard.set(x2, y2, new_state)
     return newBoard.copy()
 
 
-def postInit(board):
+def post_init(board):
     x = int(board.w / 2)
     y = int(board.h / 2)
     board.set(x, y, "ant.east.s1")
@@ -76,15 +76,15 @@ def postInit(board):
     return board
 
 
-a = automata(postInit=postInit, iterate=iterateBoard, default_state="s2")
-a.newState("s1", S1_FG, S1_BG, S1_CHAR, 0)
-a.newState("s2", S2_FG, S2_BG, S2_CHAR, 0)
-a.newState("ant.west.s1", S1_FG, S1_BG, ANT_CHAR, 0)
-a.newState("ant.south.s1", S1_FG, S1_BG, ANT_CHAR, 0)
-a.newState("ant.east.s1", S1_FG, S1_BG, ANT_CHAR, 0)
-a.newState("ant.north.s1", S1_FG, S1_BG, ANT_CHAR, 0)
-a.newState("ant.west.s2", S2_FG, S2_BG, ANT_CHAR, 0)
-a.newState("ant.south.s2", S2_FG, S2_BG, ANT_CHAR, 0)
-a.newState("ant.east.s2", S2_FG, S2_BG, ANT_CHAR, 0)
-a.newState("ant.north.s2", S2_FG, S2_BG, ANT_CHAR, 0)
+a = automata(post_init=post_init, iterate=iterate_board, default_state="s2")
+a.new_state("s1", S1_FG, S1_BG, S1_CHAR, 0)
+a.new_state("s2", S2_FG, S2_BG, S2_CHAR, 0)
+a.new_state("ant.west.s1", S1_FG, S1_BG, ANT_CHAR, 0)
+a.new_state("ant.south.s1", S1_FG, S1_BG, ANT_CHAR, 0)
+a.new_state("ant.east.s1", S1_FG, S1_BG, ANT_CHAR, 0)
+a.new_state("ant.north.s1", S1_FG, S1_BG, ANT_CHAR, 0)
+a.new_state("ant.west.s2", S2_FG, S2_BG, ANT_CHAR, 0)
+a.new_state("ant.south.s2", S2_FG, S2_BG, ANT_CHAR, 0)
+a.new_state("ant.east.s2", S2_FG, S2_BG, ANT_CHAR, 0)
+a.new_state("ant.north.s2", S2_FG, S2_BG, ANT_CHAR, 0)
 a.run()

@@ -30,7 +30,7 @@ def rugScore(board, x, y):
     return str(int(float(sum) / 20.0))
 
 
-def iterateBoard(board):
+def iterate_board(board):
     newBoard = board.new()
     for y in range(board.h):
         for x in range(board.w):
@@ -38,12 +38,12 @@ def iterateBoard(board):
     return newBoard
 
 
-a = automata(iterate=iterateBoard, default_state="0")
+a = automata(iterate=iterate_board, default_state="0")
 
 for i in range(0, 256):
     density = 0
     if i == POP_LEVEL:
         density = POP_DENSITY
-    a.newState(str(i), i, i, ' ', density)
+    a.new_state(str(i), i, i, ' ', density)
 
 a.run()
