@@ -93,11 +93,11 @@ The most famous cellular automata.
 
 ---
 
-### psych.py
+### smoke.py
 
-Trippy
+Neighbor averaging automata with defaults that look like smoke.
 
-![psych.py](screenshots/psych.gif)
+![smoke.py](screenshots/smoke.gif)
 
 ---
 
