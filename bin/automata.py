@@ -142,11 +142,9 @@ class automata:
             curses.init_pair(i, fg, bg)
             i += 1
 
-        #self.log(str(self.states))
-
     def new_state(self, state, fg, bg, char, percent):
-        #if not isinstance(char, int) and not isinstance(char, bytes):
-        #    char = ord(char)
+        if not isinstance(char, int):
+            char = ord(char)
         self.states[state] = {
             'fg': fg,
             'bg': bg,
@@ -205,13 +203,12 @@ class automata:
     def iterate(self):
         if self.iterate_function:
             self.board = self.iterate_function(self.board)
-
+    
     def log(self, s):
         if not self.flog:
             self.flog = open("tautomata.log", "a")
             self.flog.write("start log\n")
         self.flog.write(s + "\n")
-
 
     def run(self):
         try:
