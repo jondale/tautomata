@@ -13,6 +13,7 @@ Key(s) | Action
 ------ | ----------
 Up/Down arrow | Change delay (speed up or slow down)
 q | quit
+l | log the board to tautomata.log (for debugging)
 Any other key | Reinitialize the board (usually randomly)
 
 
