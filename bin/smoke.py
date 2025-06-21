@@ -5,9 +5,10 @@ from automata import automata
 # ################ CONFIG #################
 
 COLOR_START = 232
-NUM_STATES = 22
-CHAR = "."
-NEIGHBORHOOD = 1    # How far out to look at neighbrs
+NUM_STATES = 22     # These two must have a sum <= 255
+
+CHAR = " "
+NEIGHBORHOOD = 1    # How far out to look at neighbors
 WRAP = True         # Wrap board?
 
 FADE = 1
