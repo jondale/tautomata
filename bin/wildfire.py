@@ -33,7 +33,7 @@ EMPTY_BG = 0
 # ################ CONFIG #################
 
 
-def iterateBoard(board):
+def iterate_board(board):
     newBoard = board.copy()
 
     for y in range(board.h):
@@ -50,9 +50,9 @@ def iterateBoard(board):
     return newBoard
 
 
-board = automata(iterate=iterateBoard, default_state="empty")
-board.newState("veg", VEG_FG, VEG_BG, VEG_CHAR, VEG_DENSITY)
-board.newState("fire", FIRE_FG, FIRE_BG, FIRE_CHAR, FIRE_DENSITY)
-board.newState("burnt", BURNT_FG, BURNT_BG, BURNT_CHAR, 0)
-board.newState("empty", EMPTY_FG, EMPTY_BG, EMPTY_CHAR, 0)
+board = automata(iterate=iterate_board, default_state="empty")
+board.new_state("veg", VEG_FG, VEG_BG, VEG_CHAR, VEG_DENSITY)
+board.new_state("fire", FIRE_FG, FIRE_BG, FIRE_CHAR, FIRE_DENSITY)
+board.new_state("burnt", BURNT_FG, BURNT_BG, BURNT_CHAR, 0)
+board.new_state("empty", EMPTY_FG, EMPTY_BG, EMPTY_CHAR, 0)
 board.run()

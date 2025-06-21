@@ -52,7 +52,7 @@ def illScore(board, x, y):
     return str(int(state))
 
 
-def iterateBoard(board):
+def iterate_board(board):
     board.wrap = WRAP_BOARD
     newBoard = board.new()
 
@@ -62,12 +62,12 @@ def iterateBoard(board):
     return newBoard
 
 
-a = automata(iterate=iterateBoard, default_state="0")
+a = automata(iterate=iterate_board, default_state="0")
 
 for i in range(0, ILL_LEVEL+1):
     density = 0
     if i == INFECTED_POP_LEVEL:
         density = INFECTED_POP_DENSITY
-    a.newState(str(i), i, i, ' ', density)
+    a.new_state(str(i), i, i, ' ', density)
 
 a.run()

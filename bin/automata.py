@@ -7,7 +7,7 @@ import _curses
 import traceback
 
 
-class automataBoard(object):
+class automata_board(object):
     board = []
     w = 0
     h = 0
@@ -25,7 +25,7 @@ class automataBoard(object):
             for j in range(w):
                 self.board[i].append(default)
 
-    def setBoard(self, board):
+    def set_board(self, board):
         self.board = board.board.copy()
 
     def set(self, x, y, val):
@@ -72,14 +72,14 @@ class automataBoard(object):
 
     def copy(self):
         tmp = self.board.copy()
-        newBoard = automataBoard(self.w, self.h, self.default, self.wrap)
+        newBoard = automata_board(self.w, self.h, self.default, self.wrap)
         newBoard.board = tmp.copy()
         self.board = tmp.copy()
         return newBoard
 
     def new(self):
         tmp = self.board.copy()
-        newBoard = automataBoard(self.w, self.h, self.default, self.wrap)
+        newBoard = automata_board(self.w, self.h, self.default, self.wrap)
         self.board = tmp.copy()
         return newBoard
 
@@ -91,28 +91,29 @@ class automataBoard(object):
 
 
 class automata:
-    msgTimeout = 2
+    message_timeout = 2
     delay = 0.15
-    delayMax = 1
-    delayMin = 0.01
-    arrowDelta = 0.05
+    delay_max = 1
+    delay_min = 0.01
+    delay_delta = 0.05
     states = {}
-    defaultState = None
+    default_state = None
     board = None
     scr = None
     h = 0
     w = 0
     msg = None
-    msgTime = 0
-    funcIterate = None
-    funcInit = None
-    funcPostInit = None
+    msg_time = 0
+    iterate_function = None
+    init_function = None
+    post_init_function = None
+    flog = None
 
-    def __init__(self, iterate, default_state, init=None, postInit=None):
-        self.funcIterate = iterate
-        self.defaultState = default_state
-        self.funcInit = init
-        self.funcPostInit = postInit
+    def __init__(self, iterate, default_state, init=None, post_init=None):
+        self.iterate_function = iterate
+        self.default_state = default_state
+        self.init_function = init
+        self.post_init_function = post_init
 
     def __del__(self):
         if self.scr:
@@ -121,7 +122,7 @@ class automata:
         curses.echo()
         curses.endwin()
 
-    def initScreen(self):
+    def init_screen(self):
         self.scr = curses.initscr()
         self.h, self.w = self.scr.getmaxyx()
         self.scr.scrollok(False)
@@ -141,9 +142,11 @@ class automata:
             curses.init_pair(i, fg, bg)
             i += 1
 
-    def newState(self, state, fg, bg, char, percent):
-        if not isinstance(char, int):
-            char = ord(char)
+        #self.log(str(self.states))
+
+    def new_state(self, state, fg, bg, char, percent):
+        #if not isinstance(char, int) and not isinstance(char, bytes):
+        #    char = ord(char)
         self.states[state] = {
             'fg': fg,
             'bg': bg,
@@ -153,12 +156,12 @@ class automata:
 
     def notify(self, m):
         self.msg = m
-        self.msgTime = time.time()
+        self.msg_time = time.time()
 
-    def initBoard(self):
-        self.board = automataBoard(self.w, self.h, self.defaultState)
-        if self.funcInit:
-            self.board.setBoard(self.funcInit(self.board))
+    def init_board(self):
+        self.board = automata_board(self.w, self.h, self.default_state)
+        if self.init_function:
+            self.board.set_board(self.init_function(self.board))
         else:
             for y in range(self.h):
                 for x in range(self.w):
@@ -168,29 +171,30 @@ class automata:
                             self.board.set(x, y, i)
                             break
 
-        if self.funcPostInit:
-            self.board.setBoard(self.funcPostInit(self.board))
+        if self.post_init_function:
+            self.board.set_board(self.post_init_function(self.board))
 
-    def drawState(self, x, y, state):
+    def draw_state(self, x, y, state):
         try:
             char = self.states[state]["char"]
             i = self.states[state]["color"]
             color = curses.color_pair(i)
             self.scr.addch(y, x, char, color)
-        except _curses.error:
+        except: #_curses.error as e:
+            #self.log(f"board[{self.board.h}x{self.board.w}]: error drawing {x},{y} => {state} ({e})")
             pass
 
     def draw(self):
         for y in range(self.h):
             for x in range(self.w):
                 state = self.board.get(x, y)
-                self.drawState(x, y, state)
+                self.draw_state(x, y, state)
 
         if self.msg:
             t = time.time()
-            if (t - self.msgTime) > self.msgTimeout:
+            if (t - self.msg_time) > self.message_timeout:
                 self.msg = None
-                self.msgTime = 0
+                self.msg_time = 0
             else:
                 try:
                     self.scr.addstr(self.h-1, 0, self.msg)
@@ -199,39 +203,49 @@ class automata:
         self.scr.refresh()
 
     def iterate(self):
-        if self.funcIterate:
-            self.board = self.funcIterate(self.board)
+        if self.iterate_function:
+            self.board = self.iterate_function(self.board)
+
+    def log(self, s):
+        if not self.flog:
+            self.flog = open("tautomata.log", "a")
+            self.flog.write("start log\n")
+        self.flog.write(s + "\n")
+
 
     def run(self):
         try:
 
-            self.initScreen()
-            self.initBoard()
+            self.init_screen()
+            self.init_board()
             last_update = 0
             while True:
                 char = self.scr.getch()
                 if char == ord('q'):
                     break
+                elif char == ord('l'):
+                    self.log(str(self.board.board))
+                    self.notify("logged board")
                 elif char == curses.KEY_UP:
-                    self.delay += self.arrowDelta
-                    if self.delay > self.delayMax:
-                        self.delay = self.delayMax
+                    self.delay += self.delay_delta
+                    if self.delay > self.delay_max:
+                        self.delay = self.delay_max
                     self.notify("delay: {:.2f}".format(self.delay))
                 elif char == curses.KEY_DOWN:
-                    self.delay -= self.arrowDelta
-                    if self.delay <= self.delayMin:
-                        self.delay = self.delayMin
+                    self.delay -= self.delay_delta
+                    if self.delay <= self.delay_min:
+                        self.delay = self.delay_min
                     self.notify("delay: {:.2f}".format(self.delay))
                 elif char > 0:
-                    self.initScreen()
-                    self.initBoard()
+                    self.init_screen()
+                    self.init_board()
 
                 t = time.time()
                 if (t - last_update) >= self.delay:
                     self.draw()
                     self.iterate()
                     last_update = t
-                time.sleep(self.delayMin)
+                time.sleep(self.delay_min)
 
         except Exception as e:
             self.__del__()

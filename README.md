@@ -20,7 +20,7 @@ Any other key | Reinitialize the board (usually randomly)
 ## Scripts
 
 ### automata.py
-Library that implements the automataBoard and automata classes.  The goal is to make it where all you have to do is define your cell states and create an iterate function that accepts the board in one state and returns the board in the next generation state.
+Library that implements the automata_board and automata classes.  The goal is to make it where all you have to do is define your cell states and create an iterate function that accepts the board in one state and returns the board in the next generation state.
 
 
 ---
