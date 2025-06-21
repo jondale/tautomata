@@ -93,6 +93,14 @@ The most famous cellular automata.
 
 ---
 
+### psych.py
+
+Trippy
+
+![psych.py](screenshots/psych.gif)
+
+---
+
 ### reforestation.py
 
 forest.py with the addition of fire
